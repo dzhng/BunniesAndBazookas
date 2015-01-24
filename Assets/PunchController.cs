@@ -18,17 +18,19 @@ public class PunchController : MonoBehaviour
     public float pushTerrainSpeed = 20.0f;
     public float pushPlayerSpeed = 20.0f;
     public Vector3 spriteOffset;
-    public GameObject player;
     public float maxPunchLength = 20f;
     public float minRetractDistance = 4f;
     private Transform playerTransform;
     private PlayerInput playerInput;
 
     private Vector2 velocity;
+    private GameObject player;
+
     
 	// Use this for initialization
 	void Start ()
 	{
+        player = transform.parent.gameObject;
 	    punchState = PunchState.Ready;
 	    playerTransform = player.transform;
         playerInput = player.GetComponent<PlayerInput>();
