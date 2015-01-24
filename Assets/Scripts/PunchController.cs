@@ -16,9 +16,11 @@ public class PunchController : MonoBehaviour
     public float punchSpeed = 20.0f;
     public float retractSpeed = 20.0f;
     public float pushTerrainSpeed = 20.0f;
+    public float pushPlayerSpeed = 20.0f;
     public Vector3 spriteOffset;
     public GameObject player;
     public float maxPunchLength = 20f;
+    public float minRetractDistance = 4f;
     private Transform playerTransform;
     private PlayerInput playerInput;
 
@@ -43,7 +45,7 @@ public class PunchController : MonoBehaviour
                 newRot.z = 360 - newRot.z;
             }
             transform.localEulerAngles = newRot;
-            bool inputFire = Input.GetButtonDown("Fire1");
+            bool inputFire = playerInput.inputFire;
 	        if (inputFire)
 	        {
                 Fire();
@@ -64,6 +66,10 @@ public class PunchController : MonoBehaviour
 
 	    if (punchState == PunchState.Retracting)
 	    {
+            if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
+            {
+                punchState = PunchState.Ready;
+            }
 	        Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
             velocity = retractAngle * retractSpeed;
 	    }
@@ -79,12 +85,16 @@ public class PunchController : MonoBehaviour
             punchState = PunchState.Ready;
             velocity = Vector2.zero;
         }
-        if (collider.gameObject.tag == "Terrain")
+        if (collider.gameObject.tag == "Terrain" && punchState == PunchState.Punching)
         {
             punchState = PunchState.Retracting;
             velocity = Vector2.zero;
             Vector2 pushAngle = player.transform.position - transform.position;
             player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed;
+        }
+        else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
+        {
+            collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
         }
     }
 

@@ -5,6 +5,7 @@ public class PlayerInput : MonoBehaviour {
 
     public bool isFacingRight;
     public Vector2 aimAngle;
+    public bool inputFire;
 
     PlayerController controller;
 
@@ -31,10 +32,10 @@ public class PlayerInput : MonoBehaviour {
 
     void HandleInput()
     {
+        inputFire = Input.GetButtonDown(FIRE_1_INPUT);
         float horizontal = Input.GetAxis(HOR_INPUT);
         float vertical = Input.GetAxis(VER_INPUT);
         aimAngle = new Vector2(horizontal, vertical).normalized;
-        Debug.Log(aimAngle);
 
         if (horizontal > 0)
         {
