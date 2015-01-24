@@ -100,7 +100,6 @@ public class PunchController : MonoBehaviour
         }
     }
 
-
     private void Fire()
     {
         punchState = PunchState.Punching;
