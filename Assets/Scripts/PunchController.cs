@@ -13,23 +13,29 @@ public class PunchController : MonoBehaviour
     }
 
     public PunchState punchState;
-    public float punchSpeed = 20.0f;
-    public float retractSpeed = 20.0f;
+    public float punchSpeed = 80.0f;
+    public float retractSpeed = 80.0f;
     public float pushTerrainSpeed = 20.0f;
     public Vector3 spriteOffset;
-    public GameObject player;
     public float maxPunchLength = 20f;
+	public float puncherStrength = 2f;
+
     private Transform playerTransform;
     private PlayerInput playerInput;
 
     private Vector2 velocity;
+	private GameObject playerObject;
+	private PlayerControl playerCtrl;
     
 	// Use this for initialization
 	void Start ()
 	{
+		playerObject = transform.parent.gameObject;
+		playerCtrl = transform.parent.GetComponent<PlayerControl>();
+		playerInput = playerObject.GetComponent<PlayerInput>();
+
 	    punchState = PunchState.Ready;
-	    playerTransform = player.transform;
-        playerInput = player.GetComponent<PlayerInput>();
+	    playerTransform = playerObject.transform;
 	    transform.position = playerTransform.position + spriteOffset;
 	}
 	
@@ -43,13 +49,11 @@ public class PunchController : MonoBehaviour
                 newRot.z = 360 - newRot.z;
             }
             transform.localEulerAngles = newRot;
-            bool inputFire = Input.GetButtonDown("Fire1");
-	        if (inputFire)
-	        {
+            bool inputFire = Input.GetButtonDown("Fire"+playerCtrl.playerId);
+	        if (inputFire) {
                 Fire();
 	        }
-            else
-            {
+            else {
                 transform.position = playerTransform.position + spriteOffset;
             }
 	    }
@@ -74,18 +78,25 @@ public class PunchController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.Equals(player) && punchState == PunchState.Retracting)
+        if (collider.gameObject.Equals(playerObject) && punchState == PunchState.Retracting)
         {
             punchState = PunchState.Ready;
             velocity = Vector2.zero;
         }
-        if (collider.gameObject.tag == "Terrain")
+        else if (collider.gameObject.tag == "ground")
         {
             punchState = PunchState.Retracting;
             velocity = Vector2.zero;
-            Vector2 pushAngle = player.transform.position - transform.position;
-            player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed;
+            Vector2 pushAngle = playerTransform.position - transform.position;
+            playerObject.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed;
         }
+		// if it collides with a player, knock the player back
+		else if (collider.gameObject.tag == "Player") {
+			Rigidbody2D hitPlayer = collider.rigidbody2D;
+			Vector2 rocketVelocity = rigidbody2D.velocity;
+			hitPlayer.velocity = puncherStrength * (rocketVelocity + hitPlayer.velocity);
+			playerCtrl.hitTime = Time.time;
+		}
     }
 
 
