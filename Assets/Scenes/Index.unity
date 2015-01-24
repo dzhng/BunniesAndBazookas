@@ -452,6 +452,7 @@ GameObject:
   - 82: {fileID: 456813436}
   - 212: {fileID: 456813438}
   - 61: {fileID: 456813439}
+  - 50: {fileID: 456813440}
   m_Layer: 9
   m_Name: puncher
   m_TagString: Untagged
@@ -582,6 +583,21 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_Size: {x: 6.46999979, y: 3.0999999}
   m_Center: {x: -1.52587891e-05, y: 0}
+--- !u!50 &456813440
+Rigidbody2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456813434}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!1001 &570067063
 Prefab:
   m_ObjectHideFlags: 0
@@ -646,6 +662,7 @@ GameObject:
   - 82: {fileID: 617201012}
   - 212: {fileID: 617201014}
   - 61: {fileID: 617201015}
+  - 50: {fileID: 617201016}
   m_Layer: 9
   m_Name: puncher
   m_TagString: Untagged
@@ -776,6 +793,21 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_Size: {x: 6.46999979, y: 3.0999999}
   m_Center: {x: 0, y: 0}
+--- !u!50 &617201016
+Rigidbody2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 617201010}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 1
+  m_FixedAngle: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
 --- !u!1 &620785411
 GameObject:
   m_ObjectHideFlags: 0
