@@ -22,6 +22,7 @@ public class PunchController : MonoBehaviour
     public float minRetractDistance = 4f;
     private Transform playerTransform;
     private PlayerInput playerInput;
+    private Vector2 impactForce;
 
     private Vector2 velocity;
     private GameObject player;
@@ -30,6 +31,7 @@ public class PunchController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+        impactForce = Vector2.zero;
         player = transform.parent.gameObject;
 	    punchState = PunchState.Ready;
 	    playerTransform = player.transform;
@@ -74,6 +76,11 @@ public class PunchController : MonoBehaviour
             }
 	        Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
             velocity = retractAngle * retractSpeed;
+            if (impactForce.magnitude > .1f)
+            {
+                velocity += impactForce * punchSpeed;
+                impactForce *= .95f;
+            }
 	    }
         Vector3 movement = velocity * Time.deltaTime;
         transform.position += movement;
@@ -97,6 +104,11 @@ public class PunchController : MonoBehaviour
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
+        }
+        else if (collider.gameObject.tag == "Puncher" && punchState == PunchState.Punching)
+        {
+            punchState = PunchState.Retracting;
+            impactForce = collider.gameObject.GetComponent<PunchController>().velocity.normalized;
         }
     }
 
