@@ -96,6 +96,7 @@ public class PunchController : MonoBehaviour
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
+			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
         }
     }
 
