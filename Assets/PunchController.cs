@@ -59,16 +59,14 @@ public class PunchController : MonoBehaviour
                 transform.position = playerTransform.position + spriteOffset;
             }
 	    }
-
-	    if (punchState == PunchState.Punching)
+        else  if (punchState == PunchState.Punching)
 	    {
 	        if (Vector3.Distance(playerTransform.position, transform.position) > maxPunchLength)
 	        {
 	            punchState = PunchState.Retracting;
 	        }
 	    }
-
-	    if (punchState == PunchState.Retracting)
+	    else if (punchState == PunchState.Retracting)
 	    {
             if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
             {
@@ -82,6 +80,7 @@ public class PunchController : MonoBehaviour
                 impactForce *= .95f;
             }
 	    }
+
         Vector3 movement = velocity * Time.deltaTime;
         transform.position += movement;
 
@@ -94,7 +93,7 @@ public class PunchController : MonoBehaviour
             punchState = PunchState.Ready;
             velocity = Vector2.zero;
         }
-        if (collider.gameObject.tag == "Terrain" && punchState == PunchState.Punching)
+        else if (collider.gameObject.tag == "Terrain" && punchState == PunchState.Punching)
         {
             punchState = PunchState.Retracting;
             velocity = Vector2.zero;
@@ -104,6 +103,7 @@ public class PunchController : MonoBehaviour
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
+			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
         }
         else if (collider.gameObject.tag == "Puncher" && punchState == PunchState.Punching)
         {
@@ -118,6 +118,5 @@ public class PunchController : MonoBehaviour
         punchState = PunchState.Punching;
         velocity = playerInput.aimAngle * punchSpeed;
     }
-
 
 }
