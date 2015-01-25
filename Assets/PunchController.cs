@@ -13,13 +13,13 @@ public class PunchController : MonoBehaviour
     }
 
     public PunchState punchState;
-    public float punchSpeed = 20.0f;
-    public float retractSpeed = 20.0f;
-    public float pushTerrainSpeed = 20.0f;
-    public float pushPlayerSpeed = 20.0f;
+	public float punchSpeed;
+    public float retractSpeed;
+    public float pushTerrainSpeed;
+    public float pushPlayerSpeed;
     public Vector3 spriteOffset;
-    public float maxPunchLength = 20f;
-    public float minRetractDistance = 4f;
+    public float maxPunchLength;
+    public float minRetractDistance;
     private Transform playerTransform;
     private PlayerInput playerInput;
     private Vector2 impactForce;
@@ -83,7 +83,6 @@ public class PunchController : MonoBehaviour
 
         Vector3 movement = velocity * Time.deltaTime;
         transform.position += movement;
-
 	}
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -102,6 +101,7 @@ public class PunchController : MonoBehaviour
         }
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
+			punchState = PunchState.Retracting;
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
 			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
         }
@@ -110,12 +110,19 @@ public class PunchController : MonoBehaviour
             punchState = PunchState.Retracting;
             impactForce = collider.gameObject.GetComponent<PunchController>().velocity.normalized;
         }
+		else {
+			punchState = PunchState.Ready;
+			velocity = Vector2.zero;
+		}
     }
 
     private void Fire()
     {
-        punchState = PunchState.Punching;
-        velocity = playerInput.aimAngle * punchSpeed;
+		Vector2 normalized = playerInput.aimAngle;
+		if (normalized.magnitude > 0) {
+        	punchState = PunchState.Punching;
+        	velocity = playerInput.aimAngle * punchSpeed;
+		}
     }
 
 }
