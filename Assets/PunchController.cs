@@ -43,7 +43,7 @@ public class PunchController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 	    if (punchState == PunchState.Ready)
 	    {
             Vector3 newRot = Vector3.zero;
@@ -127,9 +127,8 @@ public class PunchController : MonoBehaviour
             chargeLevel += Time.deltaTime * chargeSpeed;
             yield return null;
         }
-        Debug.Log("done charging")
+        Debug.Log("done charging");
         Fire();
-
     }
     private void Fire()
     {
