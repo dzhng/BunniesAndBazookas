@@ -2,28 +2,26 @@
 using System.Collections;
 
 public class Gun : MonoBehaviour {
-	
-	public enum PunchState
-	{
-		Punching,
-		Retracting,
-		Ready,
-		Charging
-	}
 
-	private PunchState punchState;
+	public float chargeSpeed;
+
 	private PlayerInput playerInput;
 	private GameObject player;
+	private PunchController punchController;
+
+	private float chargeLevel = 1;
+	private float maxCharge = 5.0f;
 
 	// Use this for initialization
 	void Start () {
 		player = transform.parent.gameObject;
 		playerInput = player.GetComponent<PlayerInput>();
+		punchController = transform.GetComponentInChildren<PunchController> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (punchState == PunchState.Ready)
+		if (punchController.punchState == PunchController.PunchState.Ready)
 		{
 			Vector3 newRot = Vector3.zero;
 			newRot.z = Vector2.Angle(Vector2.right, playerInput.aimAngle);
@@ -32,18 +30,12 @@ public class Gun : MonoBehaviour {
 			}
 			transform.localEulerAngles = newRot;
 			
-			if (playerInput.inputFireDown)
-			{
-				punchState = PunchState.Charging;
-			}
-			else
-			{
-				transform.position = playerTransform.position + spriteOffset;
+			if (playerInput.inputFireDown) {
+				punchController.punchState = PunchController.PunchState.Charging;
 			}
 		}
-		else if (punchState == PunchState.Charging) {
-			if (playerInput.inputFireDown)
-			{
+		else if (punchController.punchState == PunchController.PunchState.Charging) {
+			if (playerInput.inputFireDown) {
 				chargeLevel += Time.deltaTime * chargeSpeed;
 				if (chargeLevel > maxCharge)
 				{
@@ -52,29 +44,7 @@ public class Gun : MonoBehaviour {
 			}
 			else if (playerInput.inputFireUp)
 			{
-				Fire();
-			}
-		}
-		else  if (punchState == PunchState.Punching)
-		{
-			if (Vector3.Distance(playerTransform.position, transform.position) > maxPunchLength)
-			{
-				punchState = PunchState.Retracting;
-			}
-		}
-		else if (punchState == PunchState.Retracting)
-		{
-			if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
-			{
-				Reset();
-			}
-			
-			Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
-			velocity = retractAngle * retractSpeed;
-			if (impactForce.magnitude > .1f)
-			{
-				velocity += impactForce * punchSpeed;
-				impactForce *= .95f;
+				punchController.Fire(playerInput.aimAngle, chargeLevel);
 			}
 		}
 	}

@@ -4,6 +4,14 @@ using System.Collections;
 
 public class PunchController : MonoBehaviour
 {
+	public enum PunchState
+	{
+		Ready,
+		Charging,
+		Punching,
+		Retracting
+	}
+
 	public float punchSpeed;
     public float retractSpeed;
     public float pushTerrainSpeed;
@@ -11,15 +19,13 @@ public class PunchController : MonoBehaviour
     public Vector3 spriteOffset;
     public float maxPunchLength;
     public float minRetractDistance;
+	public PunchState punchState;
 
     private Transform playerTransform;
     private Vector2 impactForce;
 	private Vector2 velocity;
-
     private GameObject player;
-    private float chargeLevel = 1;
-    private float maxCharge = 5.0f;
-    public float chargeSpeed;
+	private float chargeLevel;
     
 	// Use this for initialization
 	void Start ()
@@ -33,6 +39,29 @@ public class PunchController : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+		if (punchState == PunchState.Punching)
+		{
+			if (Vector3.Distance(playerTransform.position, transform.position) > maxPunchLength)
+			{
+				punchState = PunchState.Retracting;
+			}
+		}
+		else if (punchState == PunchState.Retracting)
+		{
+			if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
+			{
+				Reset();
+			}
+			
+			Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
+			velocity = retractAngle * retractSpeed;
+			if (impactForce.magnitude > .1f)
+			{
+				velocity += impactForce * punchSpeed;
+				impactForce *= .95f;
+			}
+		}
+
         Vector3 movement = velocity * Time.deltaTime;
         transform.position += movement;
 	}
@@ -66,12 +95,13 @@ public class PunchController : MonoBehaviour
 		}
     }
 
-    private void Fire()
+    public void Fire(Vector2 aimAngle, float charge)
     {
-        if (playerInput.aimAngle.magnitude > 0)
+        if (aimAngle.magnitude > 0)
         {
             punchState = PunchState.Punching;
-            velocity = playerInput.aimAngle * punchSpeed;
+            velocity = aimAngle * punchSpeed;
+			chargeLevel = charge;
         }
     }
 
