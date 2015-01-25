@@ -51,12 +51,10 @@ public class GameController : MonoBehaviour {
     void DisableGUI(Transform GUI)
     {
         GUI.GetComponent<SpriteRenderer>().enabled = false;
-        GUI.GetComponent<Animator>().enabled = false;
     }
 
     void EnableGUI(Transform GUI)
     {
         GUI.GetComponent<SpriteRenderer>().enabled = true;
-        GUI.GetComponent<Animator>().enabled = true;
     }
 }
