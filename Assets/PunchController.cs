@@ -114,7 +114,6 @@ public class PunchController : MonoBehaviour
         }
     }
 
-
     private void HandleFire() {
         if (!isCharging) {
             isCharging = true;
