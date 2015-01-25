@@ -26,7 +26,10 @@ public class PunchController : MonoBehaviour
 
     private Vector2 velocity;
     private GameObject player;
-
+    private bool isCharging;
+    private float chargeLevel = 0;
+    private float maxCharge = 20f;
+    public float chargeSpeed;
     
 	// Use this for initialization
 	void Start ()
@@ -49,10 +52,9 @@ public class PunchController : MonoBehaviour
                 newRot.z = 360 - newRot.z;
             }
             transform.localEulerAngles = newRot;
-            bool inputFire = playerInput.inputFire;
-	        if (inputFire)
+	        if (playerInput.inputFireDown)
 	        {
-                Fire();
+                HandleFire();
 	        }
             else
             {
@@ -113,10 +115,29 @@ public class PunchController : MonoBehaviour
     }
 
 
+    private void HandleFire() {
+        if (!isCharging) {
+            isCharging = true;
+            StartCoroutine("CalculateCharge");
+        }
+    }
+
+    IEnumerator CalculateCharge() {
+        while (playerInput.inputFire)
+        {
+            chargeLevel += Time.deltaTime * chargeSpeed;
+            yield return null;
+        }
+        Debug.Log("done charging")
+        Fire();
+
+    }
     private void Fire()
     {
         punchState = PunchState.Punching;
-        velocity = playerInput.aimAngle * punchSpeed;
+        velocity = playerInput.aimAngle * Mathf.Min(chargeLevel, maxCharge);
+        chargeLevel = 0f;
+        isCharging = false;
     }
 
 }
