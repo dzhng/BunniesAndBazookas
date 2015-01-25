@@ -19,9 +19,9 @@ public class GameController : MonoBehaviour {
 	void Start () {
         state = GameState.Playing;
 
-        DisableGUI(p1WinGUI);
-        DisableGUI(p2WinGUI);
-        DisableGUI(restartGUI);
+        //DisableGUI(p1WinGUI);
+        //DisableGUI(p2WinGUI);
+        //DisableGUI(restartGUI);
     }
 
     public void EndGame(int playerWonId)
@@ -50,11 +50,11 @@ public class GameController : MonoBehaviour {
 
     void DisableGUI(Transform GUI)
     {
-        GUI.GetComponent<SpriteRenderer>().enabled = false;
+        //GUI.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void EnableGUI(Transform GUI)
     {
-        GUI.GetComponent<SpriteRenderer>().enabled = true;
+        //GUI.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

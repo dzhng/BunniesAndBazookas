@@ -12,10 +12,10 @@ public class Remover : MonoBehaviour
 		{
 			// ... instantiate the splash where the player falls in.
 			Instantiate(splash, col.transform.position, transform.rotation);
-			// ... destroy the player.
-			Destroy (col.gameObject);
 			// ... reload the level.
-            gameController.EndGame(gameObject.GetComponent<PlayerController>().playerId);
+            gameController.EndGame(col.gameObject.GetComponent<PlayerController>().playerId);
+            // ... destroy the player.
+            Destroy(col.gameObject);
 
 		}
 	}
