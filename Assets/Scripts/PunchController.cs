@@ -4,7 +4,6 @@ using System.Collections;
 
 public class PunchController : MonoBehaviour
 {
-	
 	public enum PunchState
 	{
 		Punching,
@@ -23,15 +22,13 @@ public class PunchController : MonoBehaviour
     public Vector3 spriteOffset;
     public float maxPunchLength;
     public float minRetractDistance;
+	public PunchState punchState;
 
     private Transform playerTransform;
     private Vector2 impactForce;
 	private Vector2 velocity;
-
     private GameObject player;
-    private float chargeLevel = 1;
-    private float maxCharge = 5.0f;
-    public float chargeSpeed;
+	private float chargeLevel;
     
 	// Use this for initialization
 	void Start ()
@@ -134,12 +131,13 @@ public class PunchController : MonoBehaviour
 		}
     }
 
-    private void Fire()
+    public void Fire(Vector2 aimAngle, float charge)
     {
-        if (playerInput.aimAngle.magnitude > 0)
+        if (aimAngle.magnitude > 0)
         {
             punchState = PunchState.Punching;
-            velocity = playerInput.aimAngle * punchSpeed;
+            velocity = aimAngle * punchSpeed;
+			chargeLevel = charge;
         }
     }
 
