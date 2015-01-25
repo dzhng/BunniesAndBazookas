@@ -1,18 +1,18 @@
 fileFormatVersion: 2
-guid: b40b4cad2047b494ea0e6c6b49273474
+guid: 39fdfde8e137c8a438f06b61d9b3b733
 TextureImporter:
   fileIDToRecycleName:
-    21300000: yllwbunnyprtssprite_0
-    21300002: yllwbunnyprtssprite_1
-    21300004: yllwbunnyprtssprite_2
-    21300006: yllwbunnyprtssprite_3
-    21300008: yllwbunnyprtssprite_4
-    21300010: yllwbunnyprtssprite_5
-    21300012: yllwbunnyprtssprite_6
-    21300014: yllwbunnyprtssprite_7
-    21300016: yllwbunnyprtssprite_8
-    21300018: yllwbunnyprtssprite_9
-    21300020: yllwbunnyprtssprite_10
+    21300000: telbunnyspritesheet_0
+    21300002: telbunnyspritesheet_1
+    21300004: telbunnyspritesheet_2
+    21300006: telbunnyspritesheet_3
+    21300008: telbunnyspritesheet_4
+    21300010: telbunnyspritesheet_5
+    21300012: telbunnyspritesheet_6
+    21300014: telbunnyspritesheet_7
+    21300016: telbunnyspritesheet_8
+    21300018: telbunnyspritesheet_9
+    21300020: telbunnyspritesheet_10
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: yllwbunnyprtssprite_0
+    - name: telbunnyspritesheet_0
       rect:
         serializedVersion: 2
         x: 834
@@ -64,7 +64,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_1
+    - name: telbunnyspritesheet_1
       rect:
         serializedVersion: 2
         x: 55
@@ -74,7 +74,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_2
+    - name: telbunnyspritesheet_2
       rect:
         serializedVersion: 2
         x: 60
@@ -84,7 +84,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_3
+    - name: telbunnyspritesheet_3
       rect:
         serializedVersion: 2
         x: 1085
@@ -94,7 +94,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_4
+    - name: telbunnyspritesheet_4
       rect:
         serializedVersion: 2
         x: 2228
@@ -104,7 +104,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_5
+    - name: telbunnyspritesheet_5
       rect:
         serializedVersion: 2
         x: 199
@@ -114,7 +114,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_6
+    - name: telbunnyspritesheet_6
       rect:
         serializedVersion: 2
         x: 1155
@@ -124,7 +124,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_7
+    - name: telbunnyspritesheet_7
       rect:
         serializedVersion: 2
         x: 2215
@@ -134,7 +134,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_8
+    - name: telbunnyspritesheet_8
       rect:
         serializedVersion: 2
         x: 183
@@ -144,7 +144,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_9
+    - name: telbunnyspritesheet_9
       rect:
         serializedVersion: 2
         x: 1088
@@ -154,7 +154,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: yllwbunnyprtssprite_10
+    - name: telbunnyspritesheet_10
       rect:
         serializedVersion: 2
         x: 2259
