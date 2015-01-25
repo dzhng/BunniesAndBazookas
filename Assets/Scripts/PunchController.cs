@@ -118,7 +118,7 @@ public class PunchController : MonoBehaviour
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
 			punchState = PunchState.Retracting;
-            collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed * chargeLevel;
+            collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed * ( chargeLevel + 1 )/ 2;
 			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
 
 			Animator animator = collider.gameObject.GetComponent<Animator>();
