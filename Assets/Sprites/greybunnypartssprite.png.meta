@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 6adfb842567fe75449445497162a1fe7
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: greybunnypartssprite_0
+    21300002: greybunnypartssprite_1
+    21300004: greybunnypartssprite_2
+    21300006: greybunnypartssprite_3
+    21300008: greybunnypartssprite_4
+    21300010: greybunnypartssprite_5
+    21300012: greybunnypartssprite_6
+    21300014: greybunnypartssprite_7
+    21300016: greybunnypartssprite_8
+    21300018: greybunnypartssprite_9
+    21300020: greybunnypartssprite_10
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: greybunnypartssprite_0
+      rect:
+        serializedVersion: 2
+        x: 1860
+        y: 2624
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_1
+      rect:
+        serializedVersion: 2
+        x: 1843
+        y: 2332
+        width: 797
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_2
+      rect:
+        serializedVersion: 2
+        x: 2641
+        y: 2575
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_3
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 2363
+        width: 169
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_4
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 2369
+        width: 167
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_5
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 1012
+        width: 103
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_6
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 1015
+        width: 106
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_7
+      rect:
+        serializedVersion: 2
+        x: 2133
+        y: 1138
+        width: 368
+        height: 340
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_8
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 737
+        width: 129
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_9
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 731
+        width: 135
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: greybunnypartssprite_10
+      rect:
+        serializedVersion: 2
+        x: 2093
+        y: 388
+        width: 424
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
