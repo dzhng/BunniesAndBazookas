@@ -7,12 +7,14 @@ public class PlayerInput : MonoBehaviour {
     public Vector2 aimAngle;
     public bool inputFireUp;
     public bool inputFireDown;
+    public bool restartPressed;
 
     PlayerController controller;
 
     private string HOR_INPUT = "Horizontal_Joy_";
     private string VER_INPUT = "Vertical_Joy_";
     private string FIRE_1_INPUT = "Fire1_Joy_";
+    private string RESTART_INPUT = "Restart_Joy_";
 
     // Use this for initialization
 	void Start () {
@@ -21,6 +23,7 @@ public class PlayerInput : MonoBehaviour {
         HOR_INPUT += pid;
         VER_INPUT += pid;
         FIRE_1_INPUT += pid;
+        RESTART_INPUT += pid;
 
         aimAngle = Vector2.zero;
     }
@@ -34,6 +37,7 @@ public class PlayerInput : MonoBehaviour {
     {
         inputFireDown = Input.GetButton(FIRE_1_INPUT);
         inputFireUp =  Input.GetButtonUp(FIRE_1_INPUT);
+        restartPressed = Input.GetButtonDown(RESTART_INPUT);
         float horizontal = Input.GetAxis(HOR_INPUT);
         float vertical = Input.GetAxis(VER_INPUT);
         aimAngle = new Vector2(horizontal, vertical).normalized;
