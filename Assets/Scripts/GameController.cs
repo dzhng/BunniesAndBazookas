@@ -6,7 +6,6 @@ public class GameController : MonoBehaviour {
 
     public Transform p1WinGUI;
     public Transform p2WinGUI;
-    public Transform restartGUI;
     public enum GameState
     {
         Playing,
@@ -19,9 +18,8 @@ public class GameController : MonoBehaviour {
 	void Start () {
         state = GameState.Playing;
 
-        //DisableGUI(p1WinGUI);
-        //DisableGUI(p2WinGUI);
-        //DisableGUI(restartGUI);
+        DisableGUI(p1WinGUI);
+        DisableGUI(p2WinGUI);
     }
 
     public void EndGame(int playerWonId)
@@ -36,7 +34,6 @@ public class GameController : MonoBehaviour {
                 EnableGUI(p2WinGUI);
                 break;
         }
-        EnableGUI(restartGUI);
     }
 
     public void RestartGame()
@@ -50,11 +47,11 @@ public class GameController : MonoBehaviour {
 
     void DisableGUI(Transform GUI)
     {
-        //GUI.GetComponent<SpriteRenderer>().enabled = false;
+        GUI.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void EnableGUI(Transform GUI)
     {
-        //GUI.GetComponent<SpriteRenderer>().enabled = true;
+        GUI.GetComponent<SpriteRenderer>().enabled = true;
     }
 }
