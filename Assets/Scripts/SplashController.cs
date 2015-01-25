@@ -9,6 +9,6 @@ public class SplashController : MonoBehaviour {
     }
 	
     void KillSelf() {
-        //Destroy(gameObject, .5f);
+        Destroy(gameObject, .7f);
     }
 }
