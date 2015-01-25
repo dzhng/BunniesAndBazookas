@@ -12,6 +12,7 @@
 *.userprefs
 *.pidb
 *.booproj
+*.meta
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -25,3 +26,4 @@ Assets/test.unity
 Assets/test.unity
 Library/assetDatabase3
 *.dll
+Assets/test.unity
