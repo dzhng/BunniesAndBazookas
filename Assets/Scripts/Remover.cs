@@ -11,7 +11,7 @@ public class Remover : MonoBehaviour
 		if(col.gameObject.tag == "Player")
 		{
 			// ... instantiate the splash where the player falls in.
-			//Instantiate(splash, col.transform.position, transform.rotation);
+			Instantiate(splash, col.transform.position, transform.rotation);
 			// ... destroy the player.
 			Destroy (col.gameObject);
 			// ... reload the level.
