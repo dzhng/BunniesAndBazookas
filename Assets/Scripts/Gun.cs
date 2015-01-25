@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Gun : MonoBehaviour {
 	
-	public enum PunchState
+	/*public enum PunchState
 	{
 		Punching,
 		Retracting,
@@ -77,5 +77,5 @@ public class Gun : MonoBehaviour {
 				impactForce *= .95f;
 			}
 		}
-	}
+	}*/
 }

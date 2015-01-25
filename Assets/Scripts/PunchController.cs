@@ -4,6 +4,18 @@ using System.Collections;
 
 public class PunchController : MonoBehaviour
 {
+	
+	public enum PunchState
+	{
+		Punching,
+		Retracting,
+		Ready,
+		Charging
+	}
+	
+	private PunchState punchState;
+	private PlayerInput playerInput;
+
 	public float punchSpeed;
     public float retractSpeed;
     public float pushTerrainSpeed;
@@ -27,12 +39,68 @@ public class PunchController : MonoBehaviour
         impactForce = Vector2.zero;
         player = transform.parent.gameObject;
 	    playerTransform = player.transform;
+		playerInput = player.GetComponent<PlayerInput>();
 
 		Reset();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (punchState == PunchState.Ready)
+		{
+			Vector3 newRot = Vector3.zero;
+			newRot.z = Vector2.Angle(Vector2.right, playerInput.aimAngle);
+			if (playerInput.aimAngle.y < 0) {
+				newRot.z = 360 - newRot.z;
+			}
+			transform.localEulerAngles = newRot;
+			
+			if (playerInput.inputFireDown)
+			{
+				punchState = PunchState.Charging;
+			}
+			else
+			{
+				transform.position = playerTransform.position + spriteOffset;
+			}
+		}
+		else if (punchState == PunchState.Charging) {
+			if (playerInput.inputFireDown)
+			{
+				chargeLevel += Time.deltaTime * chargeSpeed;
+				if (chargeLevel > maxCharge)
+				{
+					chargeLevel = maxCharge;
+				}
+			}
+			else if (playerInput.inputFireUp)
+			{
+				Fire();
+			}
+		}
+		else  if (punchState == PunchState.Punching)
+		{
+			if (Vector3.Distance(playerTransform.position, transform.position) > maxPunchLength)
+			{
+				punchState = PunchState.Retracting;
+			}
+		}
+		else if (punchState == PunchState.Retracting)
+		{
+			if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
+			{
+				Reset();
+			}
+			
+			Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
+			velocity = retractAngle * retractSpeed;
+			if (impactForce.magnitude > .1f)
+			{
+				velocity += impactForce * punchSpeed;
+				impactForce *= .95f;
+			}
+		}
+
         Vector3 movement = velocity * Time.deltaTime;
         transform.position += movement;
 	}
