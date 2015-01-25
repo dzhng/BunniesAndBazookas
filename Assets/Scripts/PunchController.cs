@@ -120,6 +120,9 @@ public class PunchController : MonoBehaviour
 			punchState = PunchState.Retracting;
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed * chargeLevel;
 			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
+
+			Animator animator = collider.gameObject.GetComponent<Animator>();
+			animator.Play("hit");
         }
         else if (collider.gameObject.tag == "Puncher" && punchState == PunchState.Punching)
         {
@@ -137,6 +140,9 @@ public class PunchController : MonoBehaviour
         {
             punchState = PunchState.Punching;
             velocity = playerInput.aimAngle * punchSpeed;
+
+			Animator animator = player.GetComponent<Animator>();
+			animator.Play("shooting");
         }
     }
 
