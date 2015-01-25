@@ -9,7 +9,8 @@ public class PunchController : MonoBehaviour
     {
         Punching,
         Retracting,
-        Ready
+        Ready,
+        Charging
     }
 
     private PunchState punchState;
@@ -28,9 +29,8 @@ public class PunchController : MonoBehaviour
     private Vector2 impactForce;
 
     private GameObject player;
-    private bool isCharging;
-    private float chargeLevel = 0;
-    private float maxCharge = 20f;
+    private float chargeLevel = 1;
+    private float maxCharge = 5.0f;
     public float chargeSpeed;
     
 	// Use this for initialization
@@ -54,15 +54,26 @@ public class PunchController : MonoBehaviour
                 newRot.z = 360 - newRot.z;
             }
             transform.localEulerAngles = newRot;
+
 	        if (playerInput.inputFireDown)
 	        {
-                HandleFire();
+                punchState = PunchState.Charging;
 	        }
             else
             {
                 transform.position = playerTransform.position + spriteOffset;
             }
 	    }
+        else if (punchState == PunchState.Charging) {
+            if (playerInput.inputFireDown)
+            {
+                chargeLevel += Time.deltaTime * chargeSpeed;
+            }
+            else if (playerInput.inputFireUp)
+            {
+                Fire();
+            }
+        }
         else  if (punchState == PunchState.Punching)
 	    {
 	        if (Vector3.Distance(playerTransform.position, transform.position) > maxPunchLength)
@@ -100,7 +111,8 @@ public class PunchController : MonoBehaviour
         {
             punchState = PunchState.Retracting;
             Vector2 pushAngle = player.transform.position - transform.position;
-            player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed;
+            player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed * Mathf.Min(maxCharge, chargeLevel);
+            chargeLevel = 1;
         }
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
@@ -118,33 +130,18 @@ public class PunchController : MonoBehaviour
 		}
     }
 
-    private void HandleFire() {
-        if (!isCharging) {
-            isCharging = true;
-            StartCoroutine("CalculateCharge");
-        }
-    }
-
-    IEnumerator CalculateCharge() {
-        while (playerInput.inputFire)
-        {
-            chargeLevel += Time.deltaTime * chargeSpeed;
-            yield return null;
-        }
-        Debug.Log("done charging");
-        Fire();
-    }
     private void Fire()
     {
-        //punchState = PunchState.Punching;
-        //velocity = playerInput.aimAngle * Mathf.Min(chargeLevel, maxCharge);
-        //chargeLevel = 0f;
-        //isCharging = false;
-		Vector2 normalized = playerInput.aimAngle;
-		if (normalized.magnitude > 0) {
-        	punchState = PunchState.Punching;
-        	velocity = playerInput.aimAngle * punchSpeed;
-		}
+        punchState = PunchState.Punching;
+        if (playerInput.aimAngle.magnitude > 0)
+        {
+            velocity = playerInput.aimAngle * punchSpeed;
+        }
+        //Vector2 normalized = playerInput.aimAngle;
+        //if (normalized.magnitude > 0) {
+            //punchState = PunchState.Punching;
+            //velocity = playerInput.aimAngle * punchSpeed;
+        //}
     }
 
 	private void Reset() {
