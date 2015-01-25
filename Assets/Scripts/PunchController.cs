@@ -11,9 +11,6 @@ public class PunchController : MonoBehaviour
 		Ready,
 		Charging
 	}
-	
-	private PunchState punchState;
-	private PlayerInput playerInput;
 
 	public float punchSpeed;
     public float retractSpeed;
@@ -23,7 +20,10 @@ public class PunchController : MonoBehaviour
     public float maxPunchLength;
     public float minRetractDistance;
 	public PunchState punchState;
+	public float maxCharge;
+	public float chargeSpeed;
 
+	private PlayerInput playerInput;
     private Transform playerTransform;
     private Vector2 impactForce;
 	private Vector2 velocity;
@@ -131,13 +131,12 @@ public class PunchController : MonoBehaviour
 		}
     }
 
-    public void Fire(Vector2 aimAngle, float charge)
+    public void Fire()
     {
-        if (aimAngle.magnitude > 0)
+        if (playerInput.aimAngle.magnitude > 0)
         {
             punchState = PunchState.Punching;
-            velocity = aimAngle * punchSpeed;
-			chargeLevel = charge;
+            velocity = playerInput.aimAngle * punchSpeed;
         }
     }
 
