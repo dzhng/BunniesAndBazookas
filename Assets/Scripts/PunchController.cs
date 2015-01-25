@@ -150,7 +150,9 @@ public class PunchController : MonoBehaviour
 		punchState = PunchState.Ready;
 		transform.position = playerTransform.position + spriteOffset;
 		velocity = Vector2.zero;
-        GetComponentInChildren<String>().Reset();
+
+		Extender extender = GetComponentInChildren<Extender> ();
+        extender.Reset();
 	}
 
 }
