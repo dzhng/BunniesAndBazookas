@@ -13,7 +13,7 @@ public class PunchController : MonoBehaviour
         Charging
     }
 
-    private PunchState punchState;
+    public PunchState punchState;
 	private Vector2 velocity;
 
 	public float punchSpeed;
@@ -68,6 +68,10 @@ public class PunchController : MonoBehaviour
             if (playerInput.inputFireDown)
             {
                 chargeLevel += Time.deltaTime * chargeSpeed;
+                if (chargeLevel > maxCharge)
+                {
+                    chargeLevel = maxCharge;
+                }
             }
             else if (playerInput.inputFireUp)
             {
@@ -111,13 +115,13 @@ public class PunchController : MonoBehaviour
         {
             punchState = PunchState.Retracting;
             Vector2 pushAngle = player.transform.position - transform.position;
-            player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed * Mathf.Min(maxCharge, chargeLevel);
+            player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed * chargeLevel;
             chargeLevel = 1;
         }
         else if (collider.gameObject.tag == "Player" && punchState == PunchState.Punching)
         {
 			punchState = PunchState.Retracting;
-            collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed;
+            collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed * chargeLevel;
 			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
         }
         else if (collider.gameObject.tag == "Puncher" && punchState == PunchState.Punching)
@@ -132,22 +136,18 @@ public class PunchController : MonoBehaviour
 
     private void Fire()
     {
-        punchState = PunchState.Punching;
         if (playerInput.aimAngle.magnitude > 0)
         {
+            punchState = PunchState.Punching;
             velocity = playerInput.aimAngle * punchSpeed;
         }
-        //Vector2 normalized = playerInput.aimAngle;
-        //if (normalized.magnitude > 0) {
-            //punchState = PunchState.Punching;
-            //velocity = playerInput.aimAngle * punchSpeed;
-        //}
     }
 
 	private void Reset() {
 		punchState = PunchState.Ready;
 		transform.position = playerTransform.position + spriteOffset;
 		velocity = Vector2.zero;
+        GetComponentInChildren<String>().Reset();
 	}
 
 }
