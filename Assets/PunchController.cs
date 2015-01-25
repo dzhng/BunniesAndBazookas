@@ -12,7 +12,9 @@ public class PunchController : MonoBehaviour
         Ready
     }
 
-    public PunchState punchState;
+    private PunchState punchState;
+	private Vector2 velocity;
+
 	public float punchSpeed;
     public float retractSpeed;
     public float pushTerrainSpeed;
@@ -20,11 +22,11 @@ public class PunchController : MonoBehaviour
     public Vector3 spriteOffset;
     public float maxPunchLength;
     public float minRetractDistance;
+
     private Transform playerTransform;
     private PlayerInput playerInput;
     private Vector2 impactForce;
 
-    private Vector2 velocity;
     private GameObject player;
 
     
@@ -33,10 +35,10 @@ public class PunchController : MonoBehaviour
 	{
         impactForce = Vector2.zero;
         player = transform.parent.gameObject;
-	    punchState = PunchState.Ready;
 	    playerTransform = player.transform;
         playerInput = player.GetComponent<PlayerInput>();
-	    transform.position = playerTransform.position + spriteOffset;
+
+		Reset();
 	}
 	
 	// Update is called once per frame
@@ -70,8 +72,9 @@ public class PunchController : MonoBehaviour
 	    {
             if (Vector3.Distance(playerTransform.position, transform.position) < minRetractDistance)
             {
-                punchState = PunchState.Ready;
+				Reset();
             }
+
 	        Vector2 retractAngle = (playerTransform.position - transform.position).normalized;
             velocity = retractAngle * retractSpeed;
             if (impactForce.magnitude > .1f)
@@ -89,13 +92,11 @@ public class PunchController : MonoBehaviour
     {
         if (collider.gameObject.Equals(player) && punchState == PunchState.Retracting)
         {
-            punchState = PunchState.Ready;
-            velocity = Vector2.zero;
+			Reset();
         }
         else if (collider.gameObject.tag == "Terrain" && punchState == PunchState.Punching)
         {
             punchState = PunchState.Retracting;
-            velocity = Vector2.zero;
             Vector2 pushAngle = player.transform.position - transform.position;
             player.rigidbody2D.velocity += pushAngle.normalized * pushTerrainSpeed;
         }
@@ -111,8 +112,7 @@ public class PunchController : MonoBehaviour
             impactForce = collider.gameObject.GetComponent<PunchController>().velocity.normalized;
         }
 		else {
-			punchState = PunchState.Ready;
-			velocity = Vector2.zero;
+			Reset();
 		}
     }
 
@@ -124,5 +124,11 @@ public class PunchController : MonoBehaviour
         	velocity = playerInput.aimAngle * punchSpeed;
 		}
     }
+
+	private void Reset() {
+		punchState = PunchState.Ready;
+		transform.position = playerTransform.position + spriteOffset;
+		velocity = Vector2.zero;
+	}
 
 }
