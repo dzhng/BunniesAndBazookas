@@ -152,7 +152,7 @@ public class PunchController : MonoBehaviour
 		velocity = Vector2.zero;
 
 		Extender extender = GetComponentInChildren<Extender> ();
-        extender.Reset();
+		extender.Reset ();
 	}
 
 }
