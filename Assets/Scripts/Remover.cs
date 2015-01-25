@@ -4,7 +4,7 @@ using System.Collections;
 public class Remover : MonoBehaviour
 {
 	public GameObject splash;
-	
+    public GameController gameController;	
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		// If the player hits the trigger...
@@ -15,7 +15,8 @@ public class Remover : MonoBehaviour
 			// ... destroy the player.
 			Destroy (col.gameObject);
 			// ... reload the level.
-			StartCoroutine("ReloadGame");
+            gameController.EndGame(gameObject.GetComponent<PlayerController>().playerId);
+
 		}
 	}
 
@@ -24,6 +25,6 @@ public class Remover : MonoBehaviour
 		// ... pause briefly
 		yield return new WaitForSeconds(2);
 		// ... and then reload the level.
-		Application.LoadLevel(Application.loadedLevel);
+
 	}
 }
