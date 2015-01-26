@@ -27,17 +27,16 @@ public class PunchController : MonoBehaviour
     private Transform playerTransform;
     private Vector2 impactForce;
 	private Vector2 velocity;
-    private GameObject player;
+    public GameObject player;
 	private float chargeLevel;
     
 	// Use this for initialization
 	void Start ()
 	{
         impactForce = Vector2.zero;
-        player = transform.parent.gameObject;
+        //player = transform.parent.gameObject;
 	    playerTransform = player.transform;
 		playerInput = player.GetComponent<PlayerInput>();
-
 		Reset();
 	}
 	
@@ -119,7 +118,7 @@ public class PunchController : MonoBehaviour
         {
 			punchState = PunchState.Retracting;
             collider.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed * ( chargeLevel + 1 )/ 2;
-			player.rigidbody2D.velocity += -velocity.normalized * pushPlayerSpeed/2;
+			player.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed/2;
 
 			Animator animator = collider.gameObject.GetComponent<Animator>();
 			animator.Play("hit");
@@ -127,6 +126,7 @@ public class PunchController : MonoBehaviour
         else if (collider.gameObject.tag == "Puncher" && punchState == PunchState.Punching)
         {
             punchState = PunchState.Retracting;
+            player.rigidbody2D.velocity += velocity.normalized * pushPlayerSpeed / 2;
             impactForce = collider.gameObject.GetComponent<PunchController>().velocity.normalized;
         }
 		else {

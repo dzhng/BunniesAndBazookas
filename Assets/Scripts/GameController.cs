@@ -24,6 +24,10 @@ public class GameController : MonoBehaviour {
 
     public void EndGame(int playerWonId)
     {
+        if (state == GameState.GameOver)
+        {
+            return;
+        }
         state = GameState.GameOver;
         switch (playerWonId)
         {
