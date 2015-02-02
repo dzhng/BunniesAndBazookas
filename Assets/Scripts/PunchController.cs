@@ -27,14 +27,15 @@ public class PunchController : MonoBehaviour
     private Transform playerTransform;
     private Vector2 impactForce;
 	private Vector2 velocity;
-    public GameObject player;
+    private GameObject player;
+    public GameObject gun;
 	private float chargeLevel;
     
 	// Use this for initialization
 	void Start ()
 	{
         impactForce = Vector2.zero;
-        //player = transform.parent.gameObject;
+        player = transform.parent.gameObject;
 	    playerTransform = player.transform;
 		playerInput = player.GetComponent<PlayerInput>();
 		Reset();
@@ -50,6 +51,7 @@ public class PunchController : MonoBehaviour
 				newRot.z = 360 - newRot.z;
 			}
 			transform.localEulerAngles = newRot;
+            gun.transform.eulerAngles = newRot;
 			
 			if (playerInput.inputFireDown)
 			{
@@ -71,6 +73,15 @@ public class PunchController : MonoBehaviour
 			}
 			else if (playerInput.inputFireUp)
 			{
+                Vector3 newRot = Vector3.zero;
+                newRot.z = Vector2.Angle(Vector2.right, playerInput.aimAngle);
+                if (playerInput.aimAngle.y < 0)
+                {
+                    newRot.z = 360 - newRot.z;
+                }
+                transform.localEulerAngles = newRot;
+                gun.transform.eulerAngles = newRot;
+
 				Fire();
 			}
 		}
@@ -141,8 +152,8 @@ public class PunchController : MonoBehaviour
             punchState = PunchState.Punching;
             velocity = playerInput.aimAngle * punchSpeed;
 
-			Animator animator = player.GetComponent<Animator>();
-			animator.Play("shooting");
+            //Animator animator = player.GetComponent<Animator>();
+            //animator.Play("shooting");
         }
     }
 
@@ -150,6 +161,7 @@ public class PunchController : MonoBehaviour
 		punchState = PunchState.Ready;
 		transform.position = playerTransform.position + spriteOffset;
 		velocity = Vector2.zero;
+        transform.localEulerAngles = Vector3.zero;
 
 		Extender extender = GetComponentInChildren<Extender> ();
 		extender.Reset ();

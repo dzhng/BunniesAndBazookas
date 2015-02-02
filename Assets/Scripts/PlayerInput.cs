@@ -37,8 +37,8 @@ public class PlayerInput : MonoBehaviour {
     {
         inputFireDown = Input.GetButton(FIRE_1_INPUT);
         inputFireUp =  Input.GetButtonUp(FIRE_1_INPUT);
-        print(controller.playerId + "  " + inputFireUp);
-        print(controller.playerId + "  " +  inputFireDown);
+        //print(controller.playerId + "  " + inputFireUp);
+        //print(controller.playerId + "  " +  inputFireDown);
 
         restartPressed = Input.GetButtonDown(RESTART_INPUT);
         float horizontal = Input.GetAxis(HOR_INPUT);

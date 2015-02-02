@@ -20,11 +20,4 @@ public class Remover : MonoBehaviour
 		}
 	}
 
-	IEnumerator ReloadGame()
-	{			
-		// ... pause briefly
-		yield return new WaitForSeconds(2);
-		// ... and then reload the level.
-
-	}
 }
