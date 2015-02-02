@@ -28,7 +28,6 @@ public class PunchController : MonoBehaviour
     private Vector2 impactForce;
 	private Vector2 velocity;
     private GameObject player;
-    public GameObject gun;
 	private float chargeLevel;
     
 	// Use this for initialization
@@ -51,7 +50,6 @@ public class PunchController : MonoBehaviour
 				newRot.z = 360 - newRot.z;
 			}
 			transform.localEulerAngles = newRot;
-            gun.transform.eulerAngles = newRot;
 			
 			if (playerInput.inputFireDown)
 			{
@@ -80,7 +78,6 @@ public class PunchController : MonoBehaviour
                     newRot.z = 360 - newRot.z;
                 }
                 transform.localEulerAngles = newRot;
-                gun.transform.eulerAngles = newRot;
 
 				Fire();
 			}
